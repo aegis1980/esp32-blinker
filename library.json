@@ -1,0 +1,21 @@
+{
+  "name": "ESP32-Blinker",
+  "version": "1.0.0",
+  "description": "ESP32 led blinking lib using ESP32 Arduino core Tickers",
+  "keywords": "esp32, led, blink",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/aegis1980/esp32-blinker.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Jon Robinson",
+      "url": "https://floatingintheclouds.com"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": "espressif32"
+}
