@@ -1,6 +1,6 @@
 # LED blinking library for ESP32 (Arduino Core framework)
 
-Simple & easy-to-use library to control blink rates of LEDs. Uses Tickers (part of [Arduino core for ESP32](https://github.com/espressif/arduino-esp32)), which implement the ESP32 SDK timer API. 
+Simple & easy-to-use library to control blink rates of LEDs. Uses Tickers (part of [Arduino core for ESP32](https://github.com/espressif/arduino-esp32)), which uses the ESP32 `SDK timer API`. 
 
 ## Usage
 
