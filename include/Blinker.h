@@ -15,6 +15,9 @@ class Blinker {
     blink_t _blinkState;
     short pin;
 
+    float _previousOnForTime ;
+    float _previoudOffForTime;
+    blink_t _previousBlinkState;
     
     void setBlinkState(blink_t state);
 
@@ -23,9 +26,10 @@ class Blinker {
     Blinker(int pin);
     void toggle();
     void blink(float on_for, float off_for);
-    void blinkDelay(int d);
     void continuousOn();
     void continuousOff();
+
+    void snapshot();
     void resume();
 };
 

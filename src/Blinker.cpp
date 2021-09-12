@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "Blinker.h"
 
 
@@ -11,6 +10,7 @@ void callbackFunc(Blinker* blinkerInstance) {
  */
 Blinker::Blinker(int p) {
   pin = p;
+  pinMode(p, OUTPUT);
 }
 
 
@@ -46,20 +46,19 @@ void Blinker::setBlinkState(blink_t state)
  * values if you don't want to change what is already set.
  */
 
-void Blinker::blink(float on_for, float off_for) {
-  _ticker.detach();
-  _onForTime = on_for;
-  _offForTime = off_for;
+void Blinker::blink(float onFor, float offFor) {
+  
 
-  _ticker.once(on_for, callbackFunc, this);
-}
-
-/*
- * Equivalent to delay(d), but updates the blink.
- */
-void Blinker::blinkDelay(int d)
-{
-
+  if (
+      (_onForTime != onFor && _offForTime!=offFor) ||
+      _blinkState == CONTINUOUS_ON ||
+      _blinkState == CONTINUOUS_OFF
+    ){
+    _ticker.detach();
+    _onForTime = onFor;
+    _offForTime = offFor;
+    _ticker.once(onFor, callbackFunc, this);
+  }
 }
 
 /*
@@ -77,11 +76,23 @@ void Blinker::continuousOff() {
   _ticker.detach();
   setBlinkState(CONTINUOUS_OFF);
 }
+
+
+void Blinker::snapshot(){
+  _previousOnForTime = _onForTime;
+  _previoudOffForTime = _offForTime;
+  _previousBlinkState = _blinkState;
+}
+
 /*
- * Called in loop() subsequent to call to 'blinkOff()' or 'continuous()' to 
- * resume previous blinking.
- * Use 'blink(on_for, int off) to resume with new values.
+ * Resume from snapshot
  */
 void Blinker::resume() {
-  blink(_onForTime,_offForTime);  
+  if (_previousBlinkState == CONTINUOUS_ON){
+    continuousOn();
+  } else if (_previousBlinkState == CONTINUOUS_OFF){
+    continuousOff();
+  } else {
+    blink(_previousOnForTime,_previoudOffForTime);
+  }  
 }
