@@ -21,9 +21,7 @@ void Blinker::toggle(){
   } else if (_blinkState == BLINK_OFF){
     setBlinkState(BLINK_ON);
     _ticker.once(_onForTime, callbackFunc, this);
-  } else {
-    _ticker.detach();
-  }
+  } 
 }
 
 
@@ -50,11 +48,13 @@ void Blinker::blink(float onFor, float offFor) {
   
 
   if (
-      (_onForTime != onFor && _offForTime!=offFor) ||
+      _onForTime != onFor || 
+      _offForTime !=offFor ||
       _blinkState == CONTINUOUS_ON ||
       _blinkState == CONTINUOUS_OFF
     ){
-    _ticker.detach();
+    //_ticker.detach();
+    _blinkState = BLINK_ON;
     _onForTime = onFor;
     _offForTime = offFor;
     _ticker.once(onFor, callbackFunc, this);
