@@ -18,7 +18,7 @@ void Blinker::toggle(){
   if (_blinkState == BLINK_ON){
     setBlinkState(BLINK_OFF);
      _ticker.once(_offForTime, callbackFunc, this);
-  } else if (_blinkState == BLINK_OFF){
+  } else {
     setBlinkState(BLINK_ON);
     _ticker.once(_onForTime, callbackFunc, this);
   } 
